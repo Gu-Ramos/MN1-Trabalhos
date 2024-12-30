@@ -24,19 +24,19 @@ double newton_raphson_modificado(double a2, double a3, double d0, double precisa
 	double derivada_d = derivada(d, a2, a3);
 
 	// Declarando o proximo valor dado
-	double d_proximo, d_w;
+	double d_proximo, d_w; // Este dw sera o valor armazenado da ultima derivada maior que o valor adicionado em "bruh"
 
 	// Loop que roda enquanto nao encontrarmos a raiz (ou atingirmos o limite de iteracoes)
 	while (k < max_iteracoes && abs(funcao_d) > precisao){
 
-		// Verificando, inicialmente, se o valor da derivada e zero (caso seja 0, nao podera ser calculado o proximo d)
-		if (abs(derivada_d) > bruh){
+		// Verificando, inicialmente, se o valor da derivada atende ao limitante dado pela entrada da funcao
+		if (abs(derivada_d) > bruh){ // caso sim, apenas definimos o proximo valor da mesma forma
 			d_w = derivada_d;
 			d_proximo = d - (funcao_d / derivada_d);
 		}
 
 		else{
-			d_proximo = d - (funcao_d / d_w);
+			d_proximo = d - (funcao_d / d_w); // caso nao, usamos a derivada que atende ao requisito anterior
 		}
 
 		// Verificando a precisao da diferenca
