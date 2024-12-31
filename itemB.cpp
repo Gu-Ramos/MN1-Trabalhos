@@ -12,7 +12,7 @@ double derivada(double d, double a2, double a3){
 	return (3 * a3 * pow(d, 2)) - (9 * a2);
 }
 
-// Desenvolvendo o metodo de newton original, pedido pelo item a da questao
+// Desenvolvendo o metodo de newton modificado, pedido pelo item b da questao
 double newton_raphson_modificado(double a2, double a3, double d0, double precisao, double lambda, int max_iteracoes){
 
 	// Atribuindo o valor inicial para calcular a raiz

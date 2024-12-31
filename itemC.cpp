@@ -12,6 +12,51 @@ double derivada(std::function<double(double)> funcao, double x) {
 }
 
 // Desenvolvendo o metodo de newton original, pedido pelo item a da questao
+double newton_raphson(std::function<double(double)> funcao, double d0, double precisao, int max_iteracoes){
+	// Atribuindo o valor inicial para calcular a raiz
+	double d = d0; // Este e o valor de d que vai sendo atualizado 
+	int k = 0; // k e a quantidade de iteracoes que realizamos 
+
+	// Adicionando os valores que vamos trabalhar
+	double funcao_d = funcao(d);
+	double derivada_d = derivada(funcao, d);
+
+	// Declarando o proximo valor dado
+	double d_proximo;
+
+	// Loop que roda enquanto nao encontrarmos a raiz (ou atingirmos o limite de iteracoes)
+	while (k < max_iteracoes && abs(funcao_d) > precisao){
+
+		// Verificando, inicialmente, se o valor da derivada e zero (caso seja 0, nao podera ser calculado o proximo d)
+		if (derivada_d == 0){
+			cout << "Erro! Nao sera possivel calcular o proximo valor, pois a derivada deu 0" << endl;
+			break;
+		}
+
+		// Calculando o proximo valor
+		d_proximo = d - (funcao_d / derivada_d);
+
+		// Verificando a precisao da diferenca
+		if (abs(d_proximo - d) <= precisao){
+			return d_proximo; // Retornando logo o valor da possivel raiz
+		}
+
+		// Atualizando d e suas funcoes para a proxima iteracao
+		d = d_proximo;
+		funcao_d = funcao(d);
+		derivada_d = derivada(funcao, d);
+
+		// Incrementando k
+		k++;
+
+
+	}
+
+	return d;
+
+}
+
+// Desenvolvendo o metodo de newton original, pedido pelo item a da questao
 double newton_raphson_modificado(std::function<double(double)> funcao, double d0, double precisao, double lambda, int max_iteracoes) {
     // Atribuindo o valor inicial para calcular a raiz
     double d = d0; // Este é o valor de d que vai sendo atualizado 
@@ -62,7 +107,7 @@ int main() {
     };
 
     // Testando o codigo
-    double valor = newton_raphson_modificado(funcao, 0.5, 0.001, 0.05, 100);
+    double valor = newton_raphson(funcao, 0.5, 0.001, 100);
     cout << valor << endl;
 
     return 0;
