@@ -107,8 +107,11 @@ int main() {
     };
 
     // Testando o codigo
-    double valor = newton_raphson(funcao, 0.5, 0.001, 100);
-    cout << valor << endl;
+    double valor_nr = newton_raphson(funcao, 0.5, 0.001, 100);
+    double valor_nrmod = newton_raphson_modificado(funcao, 0.5, 0.001, 0.05, 100);
 
+    printf("Valor usando método de newton_rhapson: %.10f\n", valor_nr);
+    printf("Valor usando método de newton_rhapson modificado com lambda = 0.05: %.10f\n", valor_nrmod);
+    
     return 0;
 }
