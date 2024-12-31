@@ -1,0 +1,14 @@
+# Ignore build directories
+/build/
+bin/
+obj/
+
+# Ignore binary files
+*.o
+*.out
+*.exe
+*.bin
+*.a
+*.so
+*.dll
+*.dSYM/
