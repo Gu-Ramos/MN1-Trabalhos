@@ -1,27 +1,18 @@
-# include <iostream>
-# include <cmath>
+#include <functional>
+#include <iostream>
+#include <cmath>
 using namespace std;
 
-// A funcao do pendulo dada pela questao
-double funcao(double d, double a2, double a3){
-	return (a3 * pow(d, 3)) - (9 * a2 * d) + 3;
-}
-
-// A derivada da funcao do pendulo
-double derivada(double d, double a2, double a3){
-	return (3 * a3 * pow(d, 2)) - (9 * a2);
-}
-
 // Desenvolvendo o metodo de newton original, pedido pelo item a da questao
-double newton_raphson_modificado(double a2, double a3, double d0, double precisao, double lambda, int max_iteracoes){
+double newton_raphson_modificado(std::function<double(double)> funcao, std::function<double(double)> derivada, double d0, double precisao, double lambda, int max_iteracoes){
 
 	// Atribuindo o valor inicial para calcular a raiz
 	double d = d0; // Este e o valor de d que vai sendo atualizado 
 	int k = 0; // k e a quantidade de iteracoes que realizamos 
 
 	// Adicionando os valores que vamos trabalhar
-	double funcao_d = funcao(d, a2, a3);
-	double derivada_d = derivada(d, a2, a3);
+	double funcao_d = funcao(d);
+	double derivada_d = derivada(d);
 
 	// Declarando o proximo valor dado
 	double d_proximo, d_w; // Este dw sera o valor armazenado da ultima derivada maior que o valor adicionado em lambda
@@ -46,8 +37,8 @@ double newton_raphson_modificado(double a2, double a3, double d0, double precisa
 
 		// Atualizando d e suas funcoes para a proxima iteracao
 		d = d_proximo;
-		funcao_d = funcao(d, a2, a3);
-		derivada_d = derivada(d, a2, a3);
+		double funcao_d = funcao(d);
+		double derivada_d = derivada(d);
 
 		// Incrementando k
 		k++;
@@ -60,9 +51,22 @@ double newton_raphson_modificado(double a2, double a3, double d0, double precisa
 }
 
 int main(){
+	// Definindo a3 e a2 segundo o item D
+	double a3 = 1.0;
+	double a2 = 1.0;
+
+	// A funcao do pendulo dada pela questao
+	std::function<double(double)> funcao = [a3, a2](double x) -> double {
+		return (a3 * pow(x, 3)) - (9 * a2 * x) + 3;
+	};
+
+	// A derivada da funcao do pendulo
+	std::function<double(double)> derivada = [a3, a2](double x) -> double {
+		return (3 * a3 * pow(x, 2)) - (9 * a2);
+	};
 
 	// Testando o codigo
-	double valor = newton_raphson_modificado(1.0, 1.0, 0.5, 0.001, 0.05, 100);
+	double valor = newton_raphson_modificado(funcao, derivada, 0.5, 0.001, 0.05, 100);
 	cout << valor << endl;
 
 	return 0;
