@@ -103,7 +103,7 @@ std::tuple<double, double, std::vector<std::array<double, 6>>> newton_raphson_mo
 
         if (erro <= precisao) {
             // Retornando logo o valor da possivel raiz e o erro
-            return std::tuple<double, double>(d_proximo, erro);
+            return std::tuple<double, double, std::vector<std::array<double, 6>>>(d_proximo, erro, resultados_anteriores);
         }
 
         // Atualizando d e suas funcoes para a proxima iteracao

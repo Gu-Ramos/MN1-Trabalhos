@@ -42,10 +42,12 @@ int main() {
 
         double valor_nr, erro_nr;
         std::vector<std::array<double, 5>> tabela_nr;
+
         double valor_nrmod, erro_nrmod;
+        std::vector<std::array<double, 6>> tabela_nrmod;
         
         std::tie(valor_nr, erro_nr, tabela_nr) = newton_raphson(funcao, 0.5, precisao, 100);
-        std::tie(valor_nrmod, erro_nrmod) = newton_raphson_modificado(funcao, 0.5, precisao, lambda, 100);
+        std::tie(valor_nrmod, erro_nrmod, tabela_nrmod) = newton_raphson_modificado(funcao, 0.5, precisao, lambda, 100);
 
         resultados[i][3] = valor_nr;
         resultados[i][4] = erro_nr;
