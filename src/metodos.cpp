@@ -12,10 +12,10 @@ double derivada(std::function<double(double)> funcao, double x) {
 }
 
 // Desenvolvendo o metodo de newton original, pedido pelo item a da questao
-std::tuple<double, double, std::vector<std::tuple<int, double, double, double, double, double>>> newton_raphson(std::function<double(double)> funcao, double d0, double precisao, int max_iteracoes){
+std::tuple<double, double, std::vector<std::array<double, 5>>> newton_raphson(std::function<double(double)> funcao, double d0, double precisao, int max_iteracoes){
 
 	// Criando o vetor para armazenar os dados da iteracao anterior
-	std::vector<std::tuple<int, double, double, double, double, double>> resultados_anteriores;
+	std::vector<std::array<double, 5>> resultados_anteriores;
 	
 	// Atribuindo o valor inicial para calcular a raiz
 	double d = d0; // Este e o valor de d que vai sendo atualizado 
@@ -45,11 +45,11 @@ std::tuple<double, double, std::vector<std::tuple<int, double, double, double, d
         erro = abs(d_proximo - d);
 		if (erro <= precisao){
             // Retornando logo o valor da possivel raiz e o erro
-			return std::tuple<double, double, std::vector<std::tuple<int, double, double, double, double, double>>>(d_proximo, erro, resultados_anteriores);
+			return std::tuple<double, double, std::vector<std::array<double, 5>>>(d_proximo, erro, resultados_anteriores);
 		}
 
 		// Adicionando os valores para a tupla, para armazenar no vetor
-		resultados_anteriores.emplace_back(k, d, funcao_d, derivada_d, d_proximo, erro);
+		resultados_anteriores.push_back({d, funcao_d, derivada_d, d_proximo, erro});
 
 		// Atualizando d e suas funcoes para a proxima iteracao
 		d = d_proximo;
@@ -58,12 +58,10 @@ std::tuple<double, double, std::vector<std::tuple<int, double, double, double, d
 
 		// Incrementando k
 		k++;
-
-
 	}
     
-    // Retorna o valor da possivel raiz e o erro (máximo de iterações atingido)
-	return std::tuple<double, double, std::vector<std::tuple<int, double, double, double, double, double>>>(d, erro, resultados_anteriores);
+    // Retorna o valor da possivel raiz e o erro (máximo de iterações atingido ou precisão desejada atingida)
+	return std::tuple<double, double, std::vector<std::array<double, 5>>>(d, erro, resultados_anteriores);
 }
 
 // Desenvolvendo o metodo de newton original, pedido pelo item a da questao
