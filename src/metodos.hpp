@@ -11,7 +11,7 @@
 double derivada(std::function<double(double)> funcao, double x);
 
 // Desenvolvendo o metodo de newton original, pedido pelo item a da questao
-std::tuple<double, double> newton_raphson(std::function<double(double)> funcao, double d0, double precisao, int max_iteracoes);
+std::tuple<double, double, std::vector<std::tuple<int, double, double, double, double, double>>> newton_raphson(std::function<double(double)> funcao, double d0, double precisao, int max_iteracoes);
 
 // Desenvolvendo o metodo de newton original, pedido pelo item a da questao
 std::tuple<double, double> newton_raphson_modificado(std::function<double(double)> funcao, double d0, double precisao, double lambda, int max_iteracoes);
