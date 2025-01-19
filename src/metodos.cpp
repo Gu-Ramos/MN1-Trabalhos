@@ -43,13 +43,15 @@ std::tuple<double, double, std::vector<std::array<double, 5>>> newton_raphson(st
 
 		// Verificando a precisao da diferenca
         erro = abs(d_proximo - d);
+
+        // Adicionando os valores para armazenar no vetor
+		resultados_anteriores.push_back({d, funcao_d, derivada_d, d_proximo, erro});
+
 		if (erro <= precisao){
             // Retornando logo o valor da possivel raiz e o erro
 			return std::tuple<double, double, std::vector<std::array<double, 5>>>(d_proximo, erro, resultados_anteriores);
 		}
 
-		// Adicionando os valores para a tupla, para armazenar no vetor
-		resultados_anteriores.push_back({d, funcao_d, derivada_d, d_proximo, erro});
 
 		// Atualizando d e suas funcoes para a proxima iteracao
 		d = d_proximo;
@@ -64,9 +66,13 @@ std::tuple<double, double, std::vector<std::array<double, 5>>> newton_raphson(st
 	return std::tuple<double, double, std::vector<std::array<double, 5>>>(d, erro, resultados_anteriores);
 }
 
-// Desenvolvendo o metodo de newton original, pedido pelo item a da questao
-std::tuple<double, double> newton_raphson_modificado(std::function<double(double)> funcao, double d0, double precisao, double lambda, int max_iteracoes) {
-    // Atribuindo o valor inicial para calcular a raiz
+// Desenvolvendo o metodo de newton modificado, pedido pelo item b da questao
+std::tuple<double, double, std::vector<std::array<double, 6>>> newton_raphson_modificado(std::function<double(double)> funcao, double d0, double precisao, double lambda, int max_iteracoes) {
+
+// Criando o vetor para armazenar os resultados das iteracoes
+	std::vector<std::array<double, 6>> resultados_anteriores;
+
+// Atribuindo o valor inicial para calcular a raiz
     double d = d0; // Este é o valor de d que vai sendo atualizado 
     int k = 0; // k e a quantidade de iteracoes que realizamos 
 
@@ -91,6 +97,10 @@ std::tuple<double, double> newton_raphson_modificado(std::function<double(double
 
         // Verificando a precisao da diferenca
         double erro = abs(d_proximo - d);
+
+        // Adicionando os valores para armazenar no vetor
+		resultados_anteriores.push_back({d, funcao_d, derivada_d, d_proximo, d_w, erro});
+
         if (erro <= precisao) {
             // Retornando logo o valor da possivel raiz e o erro
             return std::tuple<double, double>(d_proximo, erro);
@@ -105,5 +115,5 @@ std::tuple<double, double> newton_raphson_modificado(std::function<double(double
     }
 
     // Retorna o valor da possivel raiz e o erro (máximo de iterações atingido)
-    return std::tuple<double, double>(d, erro);
+    return std::tuple<double, double, std::vector<std::array<double, 6>>>(d, erro, resultados_anteriores);
 }
