@@ -76,26 +76,27 @@ int main() {
         printf("\n                              OPÇÃO Nº %d:\n", i+1);
 
         printf("Iterações newton_rhapson:\n");
-        printf(" k   | d            | f(d)          | f'(d)         | d k+1        | erro\n");
+        printf(" k   | d            | f(d)          | f'(d)         | d k+1        | erro abs     | erro rel\n");
         for (int iteracao = 0; iteracao < (int) tabela_nr.size(); iteracao++) {
-            printf(" %-3d | %.10f | %.10f | %.10f | %.10f | %.10f\n", (int) iteracao, tabela_nr[iteracao][0], tabela_nr[iteracao][1], tabela_nr[iteracao][2], tabela_nr[iteracao][3], tabela_nr[iteracao][4]);
+            printf(" %-3d | %.10f | %.10f | %.10f | %.10f | %.10f | %.10f\n", (int) iteracao, tabela_nr[iteracao][0], tabela_nr[iteracao][1], tabela_nr[iteracao][2], tabela_nr[iteracao][3], tabela_nr[iteracao][4], tabela_nr[iteracao][4]/tabela_nr[iteracao][3]);
         }
 
         printf("\n");
 
         printf("Iterações newton_rhapson_mod:\n");
-        printf(" k   | d            | f(d)          | f'(d)         | d k+1        | d w          | erro\n");
+        printf(" k   | d            | f(d)          | f'(d)         | d k+1        | d w          | erro abs     | erro rel\n");
         for (int iteracao = 0; iteracao < (int) tabela_nr.size(); iteracao++) {
-            printf(" %-3d | %.10f | %.10f | %.10f | %.10f | %.10f | %.10f\n", (int) iteracao, tabela_nrmod[iteracao][0], tabela_nrmod[iteracao][1], tabela_nrmod[iteracao][2], tabela_nrmod[iteracao][3], tabela_nrmod[iteracao][4], tabela_nrmod[iteracao][5]);
+            printf(" %-3d | %.10f | %.10f | %.10f | %.10f | %.10f | %.10f | %.10f\n", (int) iteracao, tabela_nrmod[iteracao][0], tabela_nrmod[iteracao][1], tabela_nrmod[iteracao][2], tabela_nrmod[iteracao][3], tabela_nrmod[iteracao][4], tabela_nrmod[iteracao][5], tabela_nrmod[iteracao][5]/tabela_nrmod[iteracao][3]);
         }
 
         printf("\n");
 
         printf("a3: %.5f | a2: %.5f | lambda: %.5f | precisão: %.5f\n", a3, a2, lambda, precisao);
         printf("-----------------------------------------------------------------------------------\n");
-        printf("Deslocamento newton_rhapson:    %.10f | Erro newton_rhapson:    %.10f\n", valor_nr, erro_nr);
-        printf("Deslocamento newton_rhapson FL: %.10f | Erro newton_rhapson FL: %.10f\n", valor_nrmod, erro_nrmod);
-        printf("Iterações newton_rhapson FL:    %.10f | Iterações newton_rhapson FL: %.10f\n", (double) tabela_nr.size(), (double) tabela_nrmod.size());
+        printf("Deslocamento newton_rhapson:    %.10f | Erro absoluto newton_rhapson:    %.10f\n", valor_nr, erro_nr);
+        printf("Deslocamento newton_rhapson FL: %.10f | Erro absoluto newton_rhapson FL: %.10f\n", valor_nrmod, erro_nrmod);
+        printf("Erro relativo newton_rhapson:   %.10f | Erro relativo newton_rhapson FL: %.10f\n", erro_nr / valor_nr, erro_nrmod / valor_nrmod);
+        printf("Iterações newton_rhapson FL:    %.10f | Iterações newton_rhapson FL:     %.10f\n", (double) tabela_nr.size(), (double) tabela_nrmod.size());
     }
     
     return 0;
