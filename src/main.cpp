@@ -85,7 +85,7 @@ int main() {
 
         printf("Iterações newton_rhapson_mod:\n");
         printf(" k   | d            | f(d)          | f'(d)         | d k+1        | d w          | erro abs     | erro rel\n");
-        for (int iteracao = 0; iteracao < (int) tabela_nr.size(); iteracao++) {
+        for (int iteracao = 0; iteracao < (int) tabela_nrmod.size(); iteracao++) {
             printf(" %-3d | %.10f | %.10f | %.10f | %.10f | %.10f | %.10f | %.10f\n", (int) iteracao, tabela_nrmod[iteracao][0], tabela_nrmod[iteracao][1], tabela_nrmod[iteracao][2], tabela_nrmod[iteracao][3], tabela_nrmod[iteracao][4], tabela_nrmod[iteracao][5], tabela_nrmod[iteracao][5]/tabela_nrmod[iteracao][3]);
         }
 
